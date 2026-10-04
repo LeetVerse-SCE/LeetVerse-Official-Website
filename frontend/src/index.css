@@ -1,0 +1,405 @@
+:root {
+  /* Rich, elegant deep forest background canvas (refined green heritage, zero slop) */
+  --bg-color: #07130e;
+  --bg-surface: #0c1e16;
+  --bg-card: #11281e;
+  --bg-card-elevated: #173527;
+  --bg-glass: rgba(14, 32, 24, 0.78);
+  --bg-glass-hover: rgba(20, 44, 33, 0.9);
+
+  /* Curated Multi-Shade Green Palette */
+  --green-mint: #6ee7b7;
+  /* Crisp mint accent */
+  --green-sage: #a7f3d0;
+  /* Soft pastel sage */
+  --green-seafoam: #5eead4;
+  /* Cool seafoam teal */
+  --green-emerald: #34d399;
+  /* Mineral jewel emerald */
+  --green-jade: #10b981;
+  /* Deep vibrant jade */
+  --green-celadon: #bbf7d0;
+  /* Pale celadon */
+  --green-moss: #a3e635;
+  /* Warm natural moss */
+  --green-olive: #bef264;
+  /* Soft olive tea */
+
+  /* Primary Theme Accents */
+  --accent-primary: #6ee7b7;
+  --accent-secondary: #5eead4;
+  --accent-warm: #bef264;
+  --accent-deep: #10b981;
+
+  /* Completely eliminate glow: borders and shadows are clean and non-glowing */
+  --accent-glow: transparent;
+  --accent-glow-subtle: transparent;
+  --accent-border: rgba(110, 231, 183, 0.35);
+  --accent-border-subtle: rgba(110, 231, 183, 0.14);
+
+  /* Clean, high-legibility typography colors */
+  --text-primary: #f2faf5;
+  --text-accent: #6ee7b7;
+  --text-muted: #95ad9f;
+  --text-dim: #60796b;
+
+  --font-display: 'Space Grotesk', 'Outfit', sans-serif;
+  --font-sans: 'Outfit', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Menlo', 'Consolas', monospace;
+
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 22px;
+  --radius-full: 9999px;
+
+  --transition-fast: 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-smooth: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-bounce: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 17px;
+  scroll-behavior: smooth;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  max-width: 100vw;
+  overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+body {
+  min-height: 100vh;
+  background-color: var(--bg-color);
+  max-width: 100vw;
+  overflow-x: hidden;
+  position: relative;
+  line-height: 1.6;
+  color: var(--text-primary);
+}
+
+/* Mobile & Desktop Navigation Responsive Utility */
+.mobile-nav-toggle {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none !important;
+  }
+
+  .mobile-nav-toggle {
+    display: flex !important;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+::selection {
+  background: var(--accent-primary);
+  color: #0b0f17;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb {
+  background: #173727;
+  border-radius: 4px;
+  border: 2px solid var(--bg-color);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #23523b;
+}
+
+/* Brand Wordmark Typography: Multi-Shade Green Gradient (Zero Neon Halo Slop) */
+.wordmark {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+  display: inline-flex;
+  align-items: baseline;
+  line-height: 0.95;
+}
+
+.wordmark-leet {
+  color: #f2faf5;
+}
+
+.wordmark-verse {
+  color: var(--accent-primary);
+  text-shadow: none;
+  /* background: linear-gradient(135deg, #6ee7b7 0%, #34d399 50%, #bef264 100%); */
+  background: #6ee7b7;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: inline-block;
+}
+
+/* Typography Hierarchy */
+h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 6vw, 4.2rem);
+  font-weight: 900;
+  letter-spacing: -0.03em;
+  line-height: 1.08;
+  color: var(--text-primary);
+}
+
+h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 4.2vw, 2.7rem);
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--text-primary);
+}
+
+h3 {
+  font-family: var(--font-sans);
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  font-weight: 700;
+  letter-spacing: -0.015em;
+  line-height: 1.3;
+  color: var(--text-primary);
+}
+
+p {
+  font-size: clamp(1rem, 1.15vw, 1.15rem);
+  line-height: 1.65;
+  color: var(--text-muted);
+}
+
+.lead-tagline {
+  font-size: clamp(1.2rem, 2.6vw, 1.75rem);
+  font-weight: 500;
+  line-height: 1.45;
+  color: var(--text-accent);
+}
+
+.mono-tag {
+  font-family: var(--font-mono);
+  font-size: clamp(12px, 1vw, 13.5px);
+  letter-spacing: 0.08em;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  outline: none;
+  background: none;
+}
+
+/* Layout Utilities */
+.container {
+  width: 100%;
+  max-width: 1260px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(18px, 4vw, 36px);
+  padding-right: clamp(18px, 4vw, 36px);
+}
+
+/* Glassmorphism & Atmospheric Surfaces - Crisp & Tactile */
+.glass-panel {
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--accent-border-subtle);
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+  transition: all var(--transition-smooth);
+}
+
+.glass-panel:hover {
+  border-color: var(--accent-border);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.35);
+}
+
+/* Clean Pastel Highlights without Artificial Neon Bloom */
+.glow-text {
+  text-shadow: none;
+  color: var(--accent-primary);
+}
+
+.glow-box {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* High-Legibility Buttons - Solid Mint Pill & Tactile Forest Glass */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 28px;
+  border-radius: var(--radius-full);
+  background: var(--accent-primary);
+  color: #05140b;
+  border: 1.5px solid var(--accent-primary);
+  font-weight: 700;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  letter-spacing: 0.01em;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
+}
+
+.btn-primary:hover {
+  background: var(--green-sage);
+  border-color: var(--green-sage);
+  color: #030d07;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 13px 28px;
+  border-radius: var(--radius-full);
+  background: rgba(17, 40, 30, 0.65);
+  color: var(--text-primary);
+  border: 1.5px solid rgba(110, 231, 183, 0.18);
+  font-weight: 600;
+  font-size: clamp(0.95rem, 1.05vw, 1.05rem);
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+}
+
+.btn-secondary:hover {
+  border-color: var(--accent-border);
+  background: rgba(23, 53, 39, 0.85);
+  color: var(--accent-primary);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(0, 0, 0, 0.35);
+}
+
+/* Animation Keyframes */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s var(--transition-smooth) forwards;
+}
+
+/* Member Profile Card Background Pattern & Drift Animation */
+@keyframes driftbg {
+  0% {
+    background-position: 0 0;
+  }
+
+  100% {
+    background-position: 160px 160px;
+  }
+}
+
+.mc-bg,
+.card-bg {
+  background-color: var(--bg-glass);
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="160" height="160" viewBox="0 0 160 160"><circle cx="0" cy="0" r="1" fill="%236ee7b7" opacity="0.08"/><circle cx="80" cy="0" r="1" fill="%236ee7b7" opacity="0.08"/><circle cx="160" cy="0" r="1" fill="%236ee7b7" opacity="0.08"/><circle cx="0" cy="80" r="1" fill="%236ee7b7" opacity="0.08"/><circle cx="80" cy="80" r="1" fill="%236ee7b7" opacity="0.08"/><circle cx="160" cy="80" r="1" fill="%236ee7b7" opacity="0.08"/><circle cx="0" cy="160" r="1" fill="%236ee7b7" opacity="0.08"/><circle cx="80" cy="160" r="1" fill="%236ee7b7" opacity="0.08"/><circle cx="160" cy="160" r="1" fill="%236ee7b7" opacity="0.08"/><path d="M 0 40 C 25 28, 55 28, 80 40 C 105 52, 135 52, 160 40" fill="none" stroke="%236ee7b7" stroke-width="0.6" opacity="0.08"/><path d="M 0 85 C 25 95, 55 95, 80 85 C 105 75, 135 75, 160 85" fill="none" stroke="%236ee7b7" stroke-width="0.5" opacity="0.06"/><path d="M 0 125 C 25 111, 55 111, 80 125 C 105 139, 135 139, 160 125" fill="none" stroke="%236ee7b7" stroke-width="0.5" opacity="0.06"/></svg>');
+  background-repeat: repeat;
+  background-size: 160px 160px;
+  animation: driftbg 50s linear infinite;
+}
+
+/* Static Photo Ring (No Radioactivity) */
+.mc-ring {
+  border: 2px solid var(--accent-primary);
+  box-shadow: none !important;
+}
+
+.photo-ambient-glow {
+  display: none !important;
+}
+
+/* Multi-Shade Green Helper Classes */
+.text-green-mint {
+  color: var(--green-mint);
+}
+
+.text-green-sage {
+  color: var(--green-sage);
+}
+
+.text-green-seafoam {
+  color: var(--green-seafoam);
+}
+
+.text-green-emerald {
+  color: var(--green-emerald);
+}
+
+.text-green-jade {
+  color: var(--green-jade);
+}
+
+.text-green-celadon {
+  color: var(--green-celadon);
+}
+
+.text-green-moss {
+  color: var(--green-moss);
+}
+
+.text-green-olive {
+  color: var(--green-olive);
+}
+
+/* Accessibility: Disable animations when prefers-reduced-motion is active */
+@media (prefers-reduced-motion: reduce) {
+
+  .mc-bg,
+  .card-bg {
+    animation: none !important;
+  }
+}
