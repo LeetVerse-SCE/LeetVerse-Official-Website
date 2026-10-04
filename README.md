@@ -61,7 +61,7 @@ LEETVERSE-WEBSITE/
 
 ---
 
-## 🚀 Recent Updates & Enhancements
+## Recent Updates & Enhancements
 
 - **Project External Links & Curved 3D Showcase:** Added end-to-end `link` attribute support across backend schemas, serializers, admin CRUD, card link triggers, and modals. Upgraded the project showcase to a top-anchored 3D cylindrical arc with mouse cursor tilt, wheel navigation, and vertically balanced mobile spacing.
 - **Hierarchical Admin Member Onboarding & Multi-Domain Support:** Implemented a two-step role selection flow — Executive roles (President, Vice President, General Secretary) are domain-agnostic, while Lead, Asst Lead, and Member roles branch into multi-domain selection with custom domain creation and auto-distribution across domain directories.
@@ -71,7 +71,7 @@ LEETVERSE-WEBSITE/
 
 ---
 
-## ⚡ Quickstart
+## Quickstart
 
 ### 1. Backend Setup
 
@@ -145,7 +145,7 @@ The web application will be live at `http://localhost:5173`.
 
 ---
 
-## 🌐 API Reference
+## API Reference
 
 ### Public Routes
 
@@ -197,7 +197,7 @@ The web application will be live at `http://localhost:5173`.
 
 ---
 
-## 🔄 Cache Refresh Architecture
+## Cache Refresh Architecture
 
 To deliver near-zero latency for public visitors without consuming Firestore read quotas, public listings are compiled into static JSON files hosted on Vercel Blob CDN:
 
@@ -216,7 +216,7 @@ Generated JSON Blobs:
 
 ---
 
-## 🛡️ Security & Defense-in-Depth
+##  Security & Defense-in-Depth
 
 1. **Deny-All Client Rules:** `firestore.rules` blocks all client-side reads and writes (`allow read, write: if false;`). Every database operation occurs via the Firebase Admin SDK on the backend.
 2. **Tiered Rate Limiting:** Prevents scraper abuse on live public routes while ensuring high throughput for authenticated admin operations.
@@ -225,7 +225,7 @@ Generated JSON Blobs:
 
 ---
 
-## 🖼️ Social Previews & Dynamic OpenGraph (OG)
+## Social Previews & Dynamic OpenGraph (OG)
 
 Because React is a Client-Side Rendered (CSR) Single Page Application, social media crawlers (WhatsApp, Twitter/X, Discord, LinkedIn, Facebook) cannot execute JavaScript to parse dynamic metadata. LeetVerse resolves this using a hybrid edge-routing and server-rendered OpenGraph architecture:
 
