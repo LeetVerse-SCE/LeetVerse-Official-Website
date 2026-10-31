@@ -16,12 +16,13 @@ export const createMemberSchema = z.object({
   position: z.string().trim().min(1, 'Position is required'),
   domain: z.string().trim().optional(),
   domains: z.array(z.string().trim()).optional().default([]),
+  domainRoles: z.record(z.string()).optional(),
   bio: z.string().trim().default(''),
   photoUrl: z.string().url('Invalid photo URL').optional().nullable(),
   instagram: z.string().url('Invalid Instagram URL').optional().nullable(),
   linkedin: z.string().url('Invalid LinkedIn URL').optional().nullable(),
   github: z.string().url('Invalid GitHub URL').optional().nullable(),
-  rollNo: z.string().trim().min(1, 'Roll number is required'),
+  rollNo: z.string().trim().optional().default('N/A'),
 });
 
 export const updateMemberFieldSchema = z.object({
@@ -36,12 +37,16 @@ export const updateMemberFieldSchema = z.object({
     'github',
     'rollNo',
     'domains',
+    'domainRoles',
   ]),
-  value: z.union([z.string(), z.array(z.string()), z.null()]),
+  value: z.union([z.string(), z.array(z.string()), z.record(z.string()), z.null()]),
 }).refine(
   (data) => {
     if (data.field === 'domains') {
       return Array.isArray(data.value);
+    }
+    if (data.field === 'domainRoles') {
+      return typeof data.value === 'object' && data.value !== null && !Array.isArray(data.value);
     }
     if (data.field === 'status') {
       return data.value === 'active' || data.value === 'alumni';
@@ -55,8 +60,11 @@ export const updateMemberFieldSchema = z.object({
         return false;
       }
     }
-    if (['name', 'position', 'rollNo'].includes(data.field)) {
+    if (['name', 'position'].includes(data.field)) {
       return typeof data.value === 'string' && data.value.trim().length > 0;
+    }
+    if (data.field === 'rollNo') {
+      return typeof data.value === 'string' || data.value === null;
     }
     return true;
   },

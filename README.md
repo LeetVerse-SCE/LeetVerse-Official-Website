@@ -61,17 +61,18 @@ LEETVERSE-WEBSITE/
 
 ---
 
-## Recent Updates & Enhancements
+## 🚀 Recent Updates & Enhancements
 
 - **Project External Links & Curved 3D Showcase:** Added end-to-end `link` attribute support across backend schemas, serializers, admin CRUD, card link triggers, and modals. Upgraded the project showcase to a top-anchored 3D cylindrical arc with mouse cursor tilt, wheel navigation, and vertically balanced mobile spacing.
 - **Hierarchical Admin Member Onboarding & Multi-Domain Support:** Implemented a two-step role selection flow — Executive roles (President, Vice President, General Secretary) are domain-agnostic, while Lead, Asst Lead, and Member roles branch into multi-domain selection with custom domain creation and auto-distribution across domain directories.
 - **Gallery Inspect Theater & Pagination UX:** Added a dedicated Back button to the Inspect Theater, stabilized carousel arrows to eliminate cursor shift between page transitions, and made modal dimensions relative.
 - **Mascot Route Scoping & Audio:** Strictly scoped mascot announcements to their targeted page routes (e.g. project reminders only on `/projects`) and enabled sound effects by default.
 - **Mobile Viewport & Business Card Optimization:** Fixed mobile pinch-to-zoom issues by enforcing responsive navigation breakpoint toggles (`.desktop-nav` / `.mobile-nav-toggle`), zero-overflow viewport containment, and compact footer scaling on `/u/:username` digital business cards.
+- **Context-Aware Cross-Domain Role Resolution:** Eliminated role leakage where members leading one domain displayed a "Lead" badge when participating in secondary domains. Implemented a two-tier defense (pre-resolved static cache generation and dynamic client-side title/domain evaluation) ensuring only the designated domain lead receives the Lead badge and top sorting order, while cross-domain contributors cleanly render as Members with contextual "Lead @ [Domain]" attribution.
 
 ---
 
-## Quickstart
+## ⚡ Quickstart
 
 ### 1. Backend Setup
 
@@ -145,7 +146,7 @@ The web application will be live at `http://localhost:5173`.
 
 ---
 
-## API Reference
+## 🌐 API Reference
 
 ### Public Routes
 
@@ -197,7 +198,7 @@ The web application will be live at `http://localhost:5173`.
 
 ---
 
-## Cache Refresh Architecture
+## 🔄 Cache Refresh Architecture
 
 To deliver near-zero latency for public visitors without consuming Firestore read quotas, public listings are compiled into static JSON files hosted on Vercel Blob CDN:
 
@@ -216,7 +217,31 @@ Generated JSON Blobs:
 
 ---
 
-##  Security & Defense-in-Depth
+## 👥 Multi-Domain Membership & Contextual Role Resolution
+
+### The Problem: Cross-Domain Role Ambiguity
+In technical student organizations, members frequently lead one primary domain (e.g. Domain A Lead) while actively contributing as regular members in secondary domains (e.g. Domain B).
+- **String-Matching Ambiguity:** When member profile positions are stored as title strings (such as `"[Domain A] Lead"` or `"Lead"`), global tier evaluators matching the keyword `"lead"` would assign a green `LEAD` badge to that member in *every* domain modal they belonged to.
+- **Cache Drift:** Public visitor endpoints serve precompiled static JSON blobs from Vercel Blob CDN. If a cache snapshot lacked granular per-domain role records or explicit primary domain fields, the client had insufficient context to differentiate a member's primary leadership role from secondary participation.
+
+### The Solution: Two-Layer Defense-in-Depth Architecture
+
+#### 1. Real-Time Client Evaluation (Active Safety Net)
+The frontend resolution utilities (`getMemberRoleForDomain`, `getMemberPrimaryDomain`, `getDomainFromPosition`, and `getMemberTier` in `frontend/src/utils/memberTiers.ts`) evaluate roles dynamically within the active view context:
+- **Title Domain Inference:** Extracts target domain identifiers from specialized titles (e.g., matching `"AI/ML Lead"` to domain slug `ai-ml`). If rendered inside a different domain (e.g., `cp-dsa`), the member's role for that domain automatically demotes to `"Member"`.
+- **Primary Domain Resolution:** Determines each member's home domain across explicit records, titles, and domain lists. If a member leads their primary domain but is viewed inside a secondary domain, their secondary role defaults to `"Member"`.
+- **Contextual Attribution:** Secondary cards display the neutral `MEMBER` badge alongside a compact attribution tag (`Lead @ [Domain]`), preserving recognition without confusing domain leadership.
+- **Proper Modal Hierarchy:** When sorting domain members, true domain leads maintain rank priority at the top of the roster, while cross-domain contributors sort with the general membership.
+
+#### 2. Pre-Resolved Distribution at Cache Generation (Backend Layer)
+During static cache compilation (`npm run cache:generate` or `POST /api/admin/cache/refresh`):
+- `memberService.getActiveMembersByDomain()` evaluates all member domain associations against their primary domain and title specifications.
+- In the generated `members-listing.json` payload, cross-domain contributors are pre-mapped into secondary domain arrays with `position: "Member"` and their primary `domain` attached.
+- When public users fetch `/api/members`, the payload is pre-resolved for maximum performance, while the client-side evaluator ensures resilient fallback against any legacy or partial payloads.
+
+---
+
+## 🛡️ Security & Defense-in-Depth
 
 1. **Deny-All Client Rules:** `firestore.rules` blocks all client-side reads and writes (`allow read, write: if false;`). Every database operation occurs via the Firebase Admin SDK on the backend.
 2. **Tiered Rate Limiting:** Prevents scraper abuse on live public routes while ensuring high throughput for authenticated admin operations.
@@ -225,7 +250,7 @@ Generated JSON Blobs:
 
 ---
 
-## Social Previews & Dynamic OpenGraph (OG)
+## 🖼️ Social Previews & Dynamic OpenGraph (OG)
 
 Because React is a Client-Side Rendered (CSR) Single Page Application, social media crawlers (WhatsApp, Twitter/X, Discord, LinkedIn, Facebook) cannot execute JavaScript to parse dynamic metadata. LeetVerse resolves this using a hybrid edge-routing and server-rendered OpenGraph architecture:
 
