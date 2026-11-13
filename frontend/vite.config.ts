@@ -9,6 +9,7 @@ export default defineConfig(({ mode }) => {
     plugins: [react()],
     server: {
       port: Number(env.PORT) || 5173,
+      allowedHosts: ['fix-workspace-preview-error-frontend.v0.build'],
       proxy: {
         '/api': {
           target: backendTarget,
