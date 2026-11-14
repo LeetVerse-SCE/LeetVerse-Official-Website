@@ -21,6 +21,16 @@ const envSchema = z.object({
 
   // Vercel Blob
   BLOB_READ_WRITE_TOKEN: z.string().optional(),
+
+  // MOM Generator Integration
+  MOM_SHEET_ID: z.string().optional(),
+  MOM_TEST_SHEET_ID: z.string().optional(),
+  MOM_SHEETS_CREDENTIALS_B64: z.string().optional(),
+  MOM_ALLOWED_ORIGINS: z.string().optional(),
+  MOM_MAX_DELEGATION_HOURS: z.string().optional().transform((val) => (val ? Number(val) : 168)),
+  MOM_DEFAULT_DELEGATION_HOURS: z.string().optional().transform((val) => (val ? Number(val) : 24)),
+  MOM_NONEXEC_MAX_PAST_DAYS: z.string().optional().transform((val) => (val ? Number(val) : 14)),
+  MOM_MAX_FUTURE_DAYS: z.string().optional().transform((val) => (val ? Number(val) : 1)),
 });
 
 const parsedEnv = envSchema.safeParse(process.env);

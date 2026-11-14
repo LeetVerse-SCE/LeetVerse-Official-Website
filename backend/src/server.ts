@@ -3,6 +3,7 @@ import helmet from 'helmet';
 import cors from 'cors';
 import { ENV, getAllowedOrigins } from './config/env';
 import { appRouter } from './routes';
+import { momRouter } from './mom';
 import { errorHandler } from './middlewares/error.middleware';
 import { ERROR_CODES } from './constants/errorCodes';
 
@@ -85,6 +86,7 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 // 5. Mount API Routes
+app.use('/mom', momRouter);
 app.use(appRouter);
 
 // 6. 404 Fallback Handler

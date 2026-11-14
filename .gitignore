@@ -47,6 +47,8 @@ Thumbs.db
 # Service Account Keys & Secrets
 *serviceAccountKey*.json
 *firebase-admin*.json
+*driven-tenure*.json
+*-adminsdk-*.json
 *.pem
 *.key
 

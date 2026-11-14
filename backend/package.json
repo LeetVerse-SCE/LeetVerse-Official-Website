@@ -7,7 +7,14 @@
     "dev": "tsx watch src/server.ts",
     "build": "tsc",
     "start": "node dist/server.js",
-    "cache:generate": "tsx src/scripts/generateCache.ts"
+    "cache:generate": "tsx src/scripts/generateCache.ts",
+    "test:mom": "tsx --test test/mom/pure.test.ts test/mom/delegation.test.ts",
+    "mom:check-sheet": "tsx scripts/mom/check-sheet.ts",
+    "mom:check-members": "tsx scripts/mom/check-members.ts",
+    "mom:plan": "tsx scripts/mom/plan-dry-run.ts",
+    "mom:serve-harness": "tsx scripts/mom/serve-harness.ts",
+    "mom:e2e": "tsx --test scripts/mom/e2e.ts",
+    "mom:reset-test-sheet": "tsx scripts/mom/reset-test-sheet.ts"
   },
   "keywords": [
     "leetverse",
@@ -30,6 +37,7 @@
     "express": "^4.21.2",
     "express-rate-limit": "^7.5.0",
     "firebase-admin": "^13.1.0",
+    "googleapis": "^189.0.0",
     "helmet": "^8.0.0",
     "multer": "^1.4.5-lts.1",
     "typescript": "^5.7.3",
