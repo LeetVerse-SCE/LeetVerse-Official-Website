@@ -19,6 +19,7 @@ The Express.js + TypeScript REST API backend for the **LeetVerse Website**, depl
 11. [Vercel Blob Caching Architecture](#-vercel-blob-caching-architecture)
 12. [Rate Limiting Matrix](#-rate-limiting-matrix)
 13. [Dynamic OpenGraph & Social Crawler Architecture](#-dynamic-opengraph--social-crawler-architecture)
+14. [Minutes of Meeting (MOM) Module (`src/mom`)](#-minutes-of-meeting-mom-module)
 
 
 ---
@@ -496,4 +497,18 @@ Single Page Applications (SPAs) built with React/Vite render client-side via Jav
 4. **Testing & Cache Busting:**
    - WhatsApp and Facebook cache OpenGraph previews aggressively per URL.
    - To test updated member photos or metadata, append a dummy query parameter (e.g. `https://leetverse-website.vercel.app/u/aditya-r?v=2`) to force the crawler to fetch fresh HTML.
+
+---
+
+## 🏛 Minutes of Meeting (MOM) Module
+
+The standalone MOM integration module is implemented under [`src/mom/`](src/mom/README.md).
+
+* **Zero Persistence**: No new Firestore collections or writes.
+* **Concurrency Control**: Async mutex (`AsyncMutex`) guaranteeing atomic preflight read-validate-write.
+* **Google Sheets v4 API**: Multi-tab atomic attendance recording spanning 9 society domains with auto grid expansion.
+* **Role Derivation Engine**: Token claim & Firestore role mapping (`executive`, `lead`, `delegate`, `fic`).
+* **In-Memory Delegation**: Volatile delegation store with auto-sweeping and dynamic grantor re-verification.
+
+See the dedicated [**MOM Architecture Documentation (`src/mom/README.md`)**](src/mom/README.md) for full technical specifications, diagrams, and test suite details.
 
